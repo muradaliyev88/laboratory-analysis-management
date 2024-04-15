@@ -1,0 +1,7 @@
+django==4.2
+segno
+numpy 
+gunicorn
+python-barcode
+pillow
+aspose-barcode-for-python-via-net 

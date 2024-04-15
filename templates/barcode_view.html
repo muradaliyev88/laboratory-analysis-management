@@ -1,0 +1,158 @@
+{% extends 'header.html' %}
+{% block body %}
+      {% load static %}
+        
+{% include 'navbar.html' %} 
+        
+            <div class="page-wrapper">
+        <div class="container-xl">
+            <!-- Page title -->
+            <div class="page-header d-print-none">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-pretitle">
+                            Overview
+                        </div>
+                        <h2 class="page-title">
+                            Barcodes
+                        </h2>
+                    </div>
+                    <!-- Page title actions -->
+                    <div class="col-auto ms-auto d-print-none">
+                        <div class="d-flex">
+                            <a href="{% url 'polls:create_barcode' %}" class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
+                                    viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                                Create
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="container-xl">
+
+                
+                
+                
+                
+                <div class="row row-deck row-cards">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="card">
+
+                            
+                            <div class="table-responsive">
+                                <table class="table table-vcenter card-table" id="table">
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Created on</th>
+                                            <th>Sampled by</th>
+                                            <th>Unit</th>
+                                            <th>Sample Point</th>
+                                            <th>Sample Type</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    {% if query is not None%}
+                                        
+                                    {% for data in  query%}
+                                        
+                                    <tbody>
+                                        
+                                                                                    <tr>
+                                                <td>{{data.id}}</td>
+                                                <td>{{data.data_time}}</td>
+                                                <td><a href="{% url 'polls:show_barcode' slug=data.hashing_name %}">{{data.sampled_by}}</a></td>
+                                                <td><span
+                                                            class="badge bg-dark text-white">{{data.unit}}</span>
+                                                </td>
+                                                                                                    <td><span
+                                                            class="badge bg-success text-white">{{data.sample_point}}</span>
+                                                    </td>
+                                                    <td><span
+                                                        class="badge bg-success text-white">{{data.sample_type}}</span>
+                                                </td>
+                                                                                                <td class="text-start">
+                                                    <span class="dropdown">
+                                                        <button class="btn dropdown-toggle align-text-top small-btn"
+                                                            data-bs-boundary="viewport" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">Actions</button>
+                                                        <div class="dropdown-menu dropdown-menu-end" style="">
+                                                                <a class="dropdown-item" href="">Download QR</a>
+                                                            <a class="dropdown-item"
+                                                                href="">Edit</a>
+                                                                                                                            <a class="dropdown-item" href="#"
+                                                                    onclick="updateQrStatus('65e2f3b819736', 'deactive'); return false;">Deactivate</a>
+                                                                                                                        <a class="dropdown-item" href="#"
+                                                                onclick="deleteQr('65e2f3b819736', 'delete'); return false;">Delete</a>
+                                                        </div>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                                                                    
+                                                                                    
+                                            </tbody>
+                                            {% endfor %}
+                                            {% else %}
+                                        
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        {% include 'footer.html' %} 
+    </div>
+
+
+    
+    <div class="modal modal-blur fade" id="status-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Are you sure?</div>
+                    <div id="update_status"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" id="status_qr_code_id">Yes, proceed</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="modal modal-blur fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-title">Are you sure?</div>
+                    <div id="delete_status"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link link-secondary me-auto"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <a class="btn btn-danger" id="delete_qr_code_id">Yes, proceed</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    </div>
+
+
+    {% endblock %}

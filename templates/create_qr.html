@@ -1,0 +1,160 @@
+{% extends 'header.html' %}
+{% block body %}
+      {% load static %}
+        
+{% include 'navbar.html' %} 
+        
+<div class="page-wrapper">
+        <div class="container-xl">
+            <!-- Page title -->
+            <div class="page-header d-print-none">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="page-pretitle">
+                            Overview
+                        </div>
+                        <h2 class="page-title">
+                            Create QR Code
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-body">
+            <div class="container-xl">
+
+                
+                
+                
+                
+                <div class="row row-deck row-cards">
+                    <div class="col-sm-12 col-lg-12">
+                        <div class="col">
+                            
+                            <div class="col">
+                                
+                                <form action="{{ request.path|urlencode }}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="_token" value="">                                    
+                                    <div class="col">
+                                        <div class="row">
+
+                                            
+                                            
+
+
+                                            
+                                            <div class="col-xl-12 col-lg-12 col-md-12">
+                                                <div class="card p-3">
+                                                <div class="row">
+
+                                                    
+                                        
+                                                    
+                                                    <div class="col-md-6 col-xl-6">
+                                                        <div class="mb-6">
+                                                            <label
+                                                                class="form-label required">Sampled by</label>
+                                                            <input type="text" class="form-control" name="sampled_by" 
+                                                                id="sampled_by" maxlength="100" placeholder="Sampled by" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6 col-xl-6">
+                                                        <div class="mb-6">
+                                                            <label
+                                                                class="form-label required">Unit</label>
+                                                            <input type="text" class="form-control" name="unit" 
+                                                                id="unit" maxlength="100" placeholder="Unit" required>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-md-6 col-xl-6">
+                                                        <div class="mb-6">
+                                                            <label
+                                                                class="form-label required">Sample Point</label>
+                                                            <input type="text" class="form-control" name="sample_point" 
+                                                                id="sample_point" maxlength="100" placeholder="Sample Point" required>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="col-md-6 col-xl-6">
+                                                        <div class="mb-6">
+                                                            <label
+                                                                class="form-label required">Sample Type</label>
+                                                            <input type="text" class="form-control" name="sample_type" 
+                                                                id="sample_type" maxlength="100" placeholder="Sample Type" required>
+                                                        </div>
+                                                    </div>
+
+                                                    <input type="hidden" id="hashing_name" name="hashing_name" value="0">
+                                                    <div class="col-md-6 col-xl-6">
+                                                        <div class="mb-6">
+                                                            <label
+                                                                class="form-label required">Date Time</label>
+                                                            <input type="datetime-local" class="form-control" name="data_time" 
+                                                                id="data_time" value="2024-03-07" maxlength="100" placeholder="Date Time" required>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                    <div id="generate"></div>
+
+                                                    
+                                                    
+
+                                                                    
+                                                                    <div
+                                                                        class="col-md-6 col-xl-6 color-form-group">
+                                                                        <div class="mb-6">
+                                                                            <label
+                                                                                class="form-label">Color</label>
+                                                                            <input type="color"
+                                                                                class="form-control"
+                                                                                name="color"
+                                                                                id="color"                                                                    
+                                                                                placeholder="Foreground color">
+                                                                        </div>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                    <span class="text-muted mt-3">Note: Double-check your QR Code once before using it.</span>
+                                                    <div class="text-left mt-3">
+                                                        <div class="text-end">
+                                                            <button type="submit"
+                                                                class="btn btn-primary btn-md ms-auto">
+                                                                Generate and Save QR
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'footer.html' %} 
+
+    </div>
+
+    
+    </div>
+
+    {% endblock %}
